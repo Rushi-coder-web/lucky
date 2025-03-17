@@ -1,0 +1,433 @@
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(45deg, #580036, #4b0082);
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(45deg, #6a0dad, #8a2be2, #ff69b4, #ff1493);
+            filter: blur(50px);
+            animation: backgroundFlow 15s ease-in-out infinite alternate;
+        }
+
+        @keyframes backgroundFlow {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(100%) rotate(360deg); }
+        }
+
+        .logout-button {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 12px 25px;
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: 0.3s;
+            box-shadow: 0px 5px 15px rgba(255, 0, 0, 0.3);
+        }
+
+        .logout-button:hover {
+            background: linear-gradient(45deg, #ff4b2b, #ff416c);
+            transform: scale(1.05);
+        }
+
+        .navbar {
+            width: 100%;
+            height: 60px;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .navbar img {
+            height: 40px;
+            width: auto;
+        }
+
+        .slider-container {
+            width: 90%;
+            max-width: 500px;
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+            border-radius: 10px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
+            margin-top: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid transparent;
+            background-image: transparent;
+            background-clip: padding-box, border-box;
+            background-origin: padding-box, border-box;
+        }
+
+        .slider-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: -1;
+            margin: -2px;
+            border-radius: inherit;
+            background-image: linear-gradient(to right, #ff69b4, #4b0082, #008000, #ffff00, #ff69b4);
+            background-clip: border-box;
+        }
+
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide {
+            min-width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        h2 {
+            font-size: 28px;
+            margin-top: 20px;
+            text-shadow: 2px 2px 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .slider-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            color: white;
+            background: linear-gradient(45deg, rgba(255, 65, 108, 0.8), rgba(255, 75, 43, 0.8));
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .slider-button:hover {
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .slider-button.prev {
+            left: 10px;
+        }
+
+        .slider-button.next {
+            right: 10px;
+        }
+
+        .slider-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent);
+        }
+
+        @keyframes buttonPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .slider-button {
+            animation: buttonPulse 2s ease-in-out infinite;
+        }
+        .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.bottom-nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.bottom-nav a img {
+    width: 24px;
+    height: 24px;
+}
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background: #4b0082;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+    transition: background 0.3s ease-in-out, transform 0.3s ease-in-out;
+    z-index: 1000;
+}
+
+.bottom-nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    transition: transform 0.3s ease-in-out;
+}
+
+.bottom-nav a:hover {
+    transform: scale(1.1);
+}
+
+.bottom-nav a img {
+    width: 24px;
+    height: 24px;
+}
+
+.bottom-nav a span {
+    margin-top: 5px;
+}
+
+/* Middle button wrapper to create holo gap effect */
+.middle-button-wrapper {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 85px;
+    height: 85px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 10%, rgba(255, 255, 255, 0) 70%);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Middle button */
+.middle-button {
+    background: #ffcc00;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 15px rgba(255, 204, 0, 0.5);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.middle-button img {
+    width: 40px;
+    height: 40px;
+}
+
+.middle-button:hover {
+    transform: scale(1.2);
+    box-shadow: 0px 6px 20px rgba(255, 204, 0, 0.7);
+}
+
+/* Responsive Design */
+@media screen and (max-width: 600px) {
+    .bottom-nav {
+        height: 60px;
+        padding: 0 5px;
+    }
+
+    .bottom-nav a {
+        font-size: 10px;
+    }
+
+    .bottom-nav a img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .middle-button-wrapper {
+        width: 75px;
+        height: 75px;
+        top: -25px;
+    }
+
+    .middle-button {
+        width: 60px;
+        height: 60px;
+    }
+
+    .middle-button img {
+        width: 35px;
+        height: 35px;
+    }
+}
+/* Bottom Navbar */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 65px;
+    background: #4b0082;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.bottom-nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    transition: transform 0.3s ease-in-out;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.bottom-nav a:hover {
+    transform: scale(1.1);
+}
+
+.bottom-nav a img {
+    width: 24px;
+    height: 24px;
+}
+
+.bottom-nav a span {
+    font-size: 10px;
+    margin-top: 3px;
+}
+
+/* Middle Button Wrapper */
+.middle-button-wrapper {
+    position: absolute;
+    bottom: 15px;  /* Adjusted to keep the button in proper alignment */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 15%, rgba(255, 255, 255, 0) 80%);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Middle Button */
+.middle-button {
+    background: #ffcc00;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 15px rgba(255, 204, 0, 0.5);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.middle-button img {
+    width: 35px;
+    height: 35px;
+}
+
+.middle-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 6px 20px rgba(255, 204, 0, 0.7);
+}
+
+/* Mobile View Optimization */
+@media screen and (max-width: 600px) {
+    .bottom-nav {
+        height: 55px;
+        padding: 5px 0;
+    }
+
+    .bottom-nav a {
+        font-size: 10px;
+    }
+
+    .bottom-nav a img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .middle-button-wrapper {
+        width: 70px;
+        height: 70px;
+        bottom: 10px;  /* Adjusted for proper alignment on mobile */
+    }
+
+    .middle-button {
+        width: 55px;
+        height: 55px;
+    }
+
+    .middle-button img {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+    </style>
